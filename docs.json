@@ -12,26 +12,48 @@
     "light": "#07C983",
     "dark": "#0D9373"
   },
-  "navigation":  {
-    
-      "group": "Руководство",
-      "pages": [
-        "index",
-        "create-project",
-        "projects",
-        "platforms",
-        "integrations",
-        "versions",
-        "rules",
-        "posts",
-        "widgets",
-        "changelog",
-        "languages",
-        "feedback",
-        "support"
-      ]
-    }
-  ,
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Руководство",
+        "pages": [
+          "index",
+          "create-project",
+          "projects",
+          "platforms",
+          "integrations",
+          "versions",
+          "rules",
+          "posts",
+          "widgets",
+          "changelog",
+          "languages",
+          "feedback",
+          "support"
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "Check API",
+            "pages": [
+              "check-reference/endpoint/get-config",
+              "check-reference/endpoint/init"
+            ]
+          },
+          {
+            "group": "Feedback API",
+
+            "pages": [
+              "feedback-reference/endpoint/get-config",
+              "feedback-reference/endpoint/send"
+            ]
+          }
+        ]
+      }
+    ]
+  },
   "translations": {
     "search": "Поиск",
     "next": "Далее",

@@ -1,0 +1,315 @@
+{
+  "components": {
+    "schemas": {
+      "ConfigResponse": {
+        "properties": {
+          "external_redirect": {
+            "example": false,
+            "type": "boolean"
+          },
+          "external_redirect_link": {
+            "example": "https://google.com",
+            "format": "uri",
+            "type": "string"
+          },
+          "external_redirect_rating": {
+            "example": 0,
+            "type": "integer"
+          },
+          "finish_text": {
+            "example": "We appreciate you.",
+            "type": "string"
+          },
+          "high_subtitle": {
+            "example": "What did you like the most?",
+            "type": "string"
+          },
+          "is_comment_enabled": {
+            "example": true,
+            "type": "boolean"
+          },
+          "low_subtitle": {
+            "example": "What`s wrong?",
+            "type": "string"
+          },
+          "rating_type": {
+            "enum": ["emoji", "stars", "number"],
+            "example": "emoji",
+            "type": "string"
+          },
+          "skip_button": {
+            "example": true,
+            "type": "boolean"
+          },
+          "skip_timeout": {
+            "example": 44640,
+            "type": "integer"
+          },
+          "tags": {
+            "example": ["ui", "bets", "casino"],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "timeout": {
+            "example": 3600,
+            "type": "integer"
+          },
+          "title": {
+            "example": "How is it going?",
+            "type": "string"
+          }
+        },
+        "required": [
+          "title",
+          "tags",
+          "external_redirect_link",
+          "is_comment_enabled",
+          "skip_button",
+          "external_redirect",
+          "external_redirect_rating",
+          "rating_type",
+          "low_subtitle",
+          "high_subtitle",
+          "finish_text",
+          "timeout",
+          "skip_timeout"
+        ],
+        "type": "object"
+      },
+      "ErrorResponse": {
+        "properties": {
+          "error": {
+            "example": "Missing required X-Channel header!",
+            "type": "string"
+          }
+        },
+        "required": ["error"],
+        "type": "object"
+      },
+      "SendRequest": {
+        "properties": {
+          "comment": {
+            "example": "How is it going?",
+            "type": "string"
+          },
+          "country_code": {
+            "example": "US",
+            "type": "string"
+          },
+          "device_model": {
+            "example": "Motorola",
+            "type": "string"
+          },
+          "external_id": {
+            "example": "1",
+            "type": "string"
+          },
+          "interaction_time": {
+            "example": 12000,
+            "type": "integer"
+          },
+          "os_version": {
+            "example": "1.0",
+            "type": "string"
+          },
+          "rating": {
+            "example": 5,
+            "type": "integer"
+          },
+          "rating_type": {
+            "enum": ["heart", "emoji", "stars", "number"],
+            "example": "heart",
+            "type": "string"
+          },
+          "submission_source": {
+            "example": "source://page#section",
+            "type": "string"
+          },
+          "tags": {
+            "example": ["ui", "bets", "casino"],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "version_code": {
+            "example": "1.0.0",
+            "type": "string"
+          },
+          "version_name": {
+            "example": "My new version.3.0",
+            "type": "string"
+          }
+        },
+        "required": ["external_id", "rating", "rating_type"],
+        "type": "object"
+      },
+      "SendResponse": {
+        "properties": {
+          "message": {
+            "example": "Success",
+            "type": "string"
+          }
+        },
+        "required": ["message"],
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "ApiKey": {
+        "in": "header",
+        "name": "Authorization",
+        "type": "apiKey"
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Postman collection",
+    "url": "https://documenter.getpostman.com/view/7795553/2sB3WsQfaF"
+  },
+  "info": {
+    "contact": {
+      "email": "support@releazio.com"
+    },
+    "description": "",
+    "title": "Releazio Feedback API",
+    "version": "0.1.6"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/config": {
+      "get": {
+        "description": "Get feedback form settings",
+        "operationId": "getConfig",
+        "parameters": [
+          {
+            "description": "Channel slug",
+            "in": "header",
+            "name": "X-Channel",
+            "required": true,
+            "schema": {
+              "enum": [
+                "appstore",
+                "googleplay",
+                "apk",
+                "galaxystore",
+                "appgallery",
+                "rustore",
+                "nashstore",
+                "rumarket",
+                "getapps",
+                "web"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConfigResponse"
+                }
+              }
+            },
+            "description": "Successful operation"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Any error"
+          }
+        },
+        "summary": "Form settings",
+        "tags": ["feedback"]
+      }
+    },
+    "/send": {
+      "post": {
+        "description": "Submit user feedback data",
+        "operationId": "sendFeedback",
+        "parameters": [
+          {
+            "description": "Channel slug",
+            "in": "header",
+            "name": "X-Channel",
+            "required": true,
+            "schema": {
+              "enum": [
+                "appstore",
+                "googleplay",
+                "apk",
+                "galaxystore",
+                "appgallery",
+                "rustore",
+                "nashstore",
+                "rumarket",
+                "getapps",
+                "web"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SendResponse"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Any error"
+          }
+        },
+        "summary": "Send feedback",
+        "tags": ["feedback"]
+      }
+    }
+  },
+  "security": [
+    {
+      "ApiKey": []
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://feedback.releazio.com"
+    }
+  ],
+  "tags": [
+    {
+      "description": "Feedback requests",
+      "name": "feedback"
+    }
+  ]
+}

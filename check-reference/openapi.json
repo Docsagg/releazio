@@ -1,0 +1,668 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/": {
+      "get": {
+        "operationId": "AppController_getConfig",
+        "summary": "Get version config",
+        "description": "Retrieve the configuration settings for a specific project version.",
+        "parameters": [
+          {
+            "name": "channel",
+            "required": false,
+            "in": "query",
+            "description": "Channel slug",
+            "schema": {
+              "enum": [
+                "apk",
+                "appstore",
+                "googleplay",
+                "galaxystore",
+                "appgallery",
+                "rustore",
+                "nashstore",
+                "rumarket",
+                "getapps",
+                "web"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "app_id",
+            "required": false,
+            "in": "query",
+            "example": "com.some.app",
+            "description": "App id (package_name, bundle_id...)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "app_version_code",
+            "required": false,
+            "in": "query",
+            "example": 100,
+            "description": "Version code, ex: 1.0.0 | 1.0.0-dev | 1.0 | 1",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "os_type",
+            "required": false,
+            "in": "query",
+            "description": "OS type",
+            "schema": {
+              "enum": ["android", "ios", "web"],
+              "type": "string"
+            }
+          },
+          {
+            "name": "app_version_name",
+            "required": false,
+            "in": "query",
+            "example": "1.0.0",
+            "description": "Version name, ex: 1.0.0 | 1.0.0-dev | 1.0 | 1",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "phone_locale_country",
+            "required": false,
+            "in": "query",
+            "example": "US",
+            "description": "Country locale",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "market_packages",
+            "required": false,
+            "in": "query",
+            "example": "com.sec.android.app, com.android.vending,com.huawei.appmarket",
+            "description": "Name of packages of installed stores",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "phone_locale_language",
+            "required": false,
+            "in": "query",
+            "example": "en",
+            "description": "Phone language",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "os_version_code",
+            "required": false,
+            "in": "query",
+            "example": "34",
+            "description": "OS version code",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "device_manufacturer",
+            "required": false,
+            "in": "query",
+            "example": "Google",
+            "description": "Device manufacturer",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "device_brand",
+            "required": false,
+            "in": "query",
+            "example": "google",
+            "description": "Device brand",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "device_model",
+            "required": false,
+            "in": "query",
+            "example": "Pixel 7",
+            "description": "Device model",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConfigResponseResource"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request! Validation error!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestResource"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized exception",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResource"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Invalid API key!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForbiddenResource"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResource"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Version"],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ]
+      }
+    },
+    "/init": {
+      "post": {
+        "operationId": "AppController_init",
+        "summary": "Device init",
+        "description": "Init device, save some api req stats",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InitDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Bad request! Validation error!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestResource"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized exception",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResource"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResource"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Version"],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Releazio Check (production)",
+    "description": "REST API for client<hr/><b>endpoints:</b><ul><li>https://check.releazio.com</li></ul>",
+    "version": "1.3.13",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [
+    {
+      "url": "https://check.releazio.com"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "apiKey": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization"
+      }
+    },
+    "schemas": {
+      "ConfigDto": {
+        "type": "object",
+        "properties": {
+          "channel": {
+            "type": "string",
+            "enum": [
+              "apk",
+              "appstore",
+              "googleplay",
+              "galaxystore",
+              "appgallery",
+              "rustore",
+              "nashstore",
+              "rumarket",
+              "getapps",
+              "web"
+            ],
+            "description": "Channel slug"
+          },
+          "app_id": {
+            "type": "string",
+            "example": "com.some.app",
+            "description": "App id (package_name, bundle_id...)"
+          },
+          "app_version_code": {
+            "type": "string",
+            "example": 100,
+            "description": "Version code, ex: 1.0.0 | 1.0.0-dev | 1.0 | 1"
+          },
+          "os_type": {
+            "type": "string",
+            "enum": ["android", "ios", "web"],
+            "description": "OS type"
+          },
+          "app_version_name": {
+            "type": "string",
+            "example": "1.0.0",
+            "description": "Version name, ex: 1.0.0 | 1.0.0-dev | 1.0 | 1"
+          },
+          "phone_locale_country": {
+            "type": "string",
+            "example": "US",
+            "description": "Country locale"
+          },
+          "market_packages": {
+            "type": "string",
+            "example": "com.sec.android.app, com.android.vending,com.huawei.appmarket",
+            "description": "Name of packages of installed stores"
+          },
+          "phone_locale_language": {
+            "type": "string",
+            "example": "en",
+            "description": "Phone language"
+          },
+          "os_version_code": {
+            "type": "string",
+            "example": "34",
+            "description": "OS version code"
+          },
+          "device_manufacturer": {
+            "type": "string",
+            "example": "Google",
+            "description": "Device manufacturer"
+          },
+          "device_brand": {
+            "type": "string",
+            "example": "google",
+            "description": "Device brand"
+          },
+          "device_model": {
+            "type": "string",
+            "example": "Pixel 7",
+            "description": "Device model"
+          }
+        }
+      },
+      "ConfigResource": {
+        "type": "object",
+        "properties": {
+          "channel": {
+            "type": "string",
+            "enum": [
+              "apk",
+              "appstore",
+              "googleplay",
+              "galaxystore",
+              "appgallery",
+              "rustore",
+              "nashstore",
+              "rumarket",
+              "getapps",
+              "web"
+            ],
+            "example": "googleplay"
+          },
+          "app_version_code": {
+            "type": "string",
+            "example": "100"
+          },
+          "app_version_name": {
+            "type": "string",
+            "example": "1.0.0-dev"
+          },
+          "app_deeplink": {
+            "type": "string",
+            "example": "market://google.com/myapp"
+          },
+          "channel_package_name": {
+            "type": "string",
+            "example": "com.android.vending"
+          },
+          "app_url": {
+            "type": "string",
+            "example": "https://google.com/myapp.apk"
+          },
+          "post_url": {
+            "type": "string",
+            "example": "https://releazio.com/myapp/googleplay/1",
+            "nullable": true
+          },
+          "posts_url": {
+            "type": "string",
+            "example": "https://releazio.com/myapp/googleplay"
+          },
+          "update_type": {
+            "type": "number",
+            "enum": [0, 1, 2, 3],
+            "example": 0,
+            "description": "0 - latest, 1 - silent (only button, no popup), 2 - popup (closable), 3 - popup force (non-closable)"
+          },
+          "update_message": {
+            "type": "string",
+            "example": "To continue using this app, please update to the latest version!",
+            "nullable": true
+          },
+          "skip_attempts": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 10,
+            "example": 5,
+            "default": 0,
+            "description": "Allowed number of attempts to skip a forced update (0 - disabled)"
+          },
+          "show_interval": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 10080,
+            "example": 1440,
+            "default": 0,
+            "description": "Interval in minutes between update popup displays on app launch"
+          }
+        },
+        "required": [
+          "channel",
+          "app_version_code",
+          "app_version_name",
+          "app_deeplink",
+          "channel_package_name",
+          "app_url",
+          "post_url",
+          "posts_url",
+          "update_type",
+          "update_message",
+          "skip_attempts",
+          "show_interval"
+        ]
+      },
+      "ConfigResponseResource": {
+        "type": "object",
+        "properties": {
+          "home_url": {
+            "type": "string",
+            "example": "https://releazio.com/myapp"
+          },
+          "data": {
+            "nullable": true,
+            "description": "can be array or object",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ConfigResource"
+              }
+            ]
+          }
+        },
+        "required": ["home_url", "data"]
+      },
+      "BadRequestResource": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "number",
+            "example": 400
+          },
+          "message": {
+            "example": [
+              "channel must be one of the following values: appstore, googleplay, apk, galaxystore, appgallery, rustore, nashstore, rumarket, getapps"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "error": {
+            "type": "string",
+            "example": "Bad Request"
+          }
+        },
+        "required": ["statusCode", "message", "error"]
+      },
+      "UnauthorizedResource": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "number",
+            "example": 401
+          },
+          "message": {
+            "type": "string",
+            "example": "Unauthorized!"
+          }
+        },
+        "required": ["statusCode", "message"]
+      },
+      "ForbiddenResource": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "number",
+            "example": 403
+          },
+          "message": {
+            "type": "string",
+            "example": "Invalid API key in request!"
+          }
+        },
+        "required": ["statusCode", "message"]
+      },
+      "InternalServerErrorResource": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "number",
+            "example": 500
+          },
+          "message": {
+            "type": "string",
+            "example": "Internal server error"
+          }
+        },
+        "required": ["statusCode", "message"]
+      },
+      "InitDto": {
+        "type": "object",
+        "properties": {
+          "channel": {
+            "type": "string",
+            "enum": [
+              "apk",
+              "appstore",
+              "googleplay",
+              "galaxystore",
+              "appgallery",
+              "rustore",
+              "nashstore",
+              "rumarket",
+              "getapps",
+              "web"
+            ],
+            "description": "Channel slug"
+          },
+          "app_id": {
+            "type": "string",
+            "maxLength": 30,
+            "example": "com.some.app",
+            "description": "App id (package_name, bundle_id...)"
+          },
+          "app_version_code": {
+            "type": "string",
+            "maxLength": 20,
+            "example": 100,
+            "description": "Version code, ex: 1.0.0 | 1.0.0-dev | 1.0 | 1"
+          },
+          "app_version_name": {
+            "type": "string",
+            "example": "1.0.0",
+            "maxLength": 20,
+            "description": "Version name, ex: 1.0.0 | 1.0.0-dev | 1.0 | 1"
+          },
+          "os_type": {
+            "type": "string",
+            "example": "android",
+            "maxLength": 20,
+            "description": "OS type"
+          },
+          "region": {
+            "type": "string",
+            "example": "RU",
+            "maxLength": 2,
+            "description": "Country code"
+          },
+          "market_packages": {
+            "type": "string",
+            "maxLength": 300,
+            "example": "com.sec.android.app, com.android.vending,com.huawei.appmarket",
+            "description": "Name of packages of installed stores"
+          },
+          "locale": {
+            "type": "string",
+            "example": "en",
+            "maxLength": 2,
+            "description": "Locale"
+          },
+          "os_version_code": {
+            "type": "string",
+            "example": "34",
+            "maxLength": 12,
+            "description": "OS version code"
+          },
+          "device_manufacturer": {
+            "type": "string",
+            "example": "Google",
+            "maxLength": 16,
+            "description": "Device manufacturer"
+          },
+          "device_brand": {
+            "type": "string",
+            "example": "google",
+            "maxLength": 16,
+            "description": "Device brand"
+          },
+          "device_model": {
+            "type": "string",
+            "example": "Pixel 7",
+            "maxLength": 20,
+            "description": "Device model"
+          },
+          "sdk_version": {
+            "type": "string",
+            "example": 100,
+            "maxLength": 16,
+            "description": "SDK version, ex: 1.0.0 | 1.0.0-dev | 1.0 | 1"
+          },
+          "os_api_level": {
+            "type": "string",
+            "example": "36",
+            "maxLength": 12,
+            "description": "OS API level"
+          },
+          "timezone": {
+            "type": "string",
+            "example": "Europe/Moscow",
+            "maxLength": 20,
+            "description": "User timezone"
+          },
+          "device_id": {
+            "type": "string",
+            "example": "a1b2c3d4-e5f6-7890-1234-567890abcdef",
+            "maxLength": 60,
+            "description": "Device id"
+          },
+          "screen_width": {
+            "type": "number",
+            "example": 100,
+            "maximum": 9999,
+            "description": "Screen width"
+          },
+          "screen_height": {
+            "type": "number",
+            "example": 100,
+            "maximum": 9999,
+            "description": "Screen height"
+          },
+          "screen_scale": {
+            "type": "number",
+            "example": 100,
+            "maximum": 9999,
+            "description": "Screen height"
+          },
+          "is_emulator": {
+            "type": "boolean",
+            "example": true,
+            "description": "Emulator flag"
+          }
+        },
+        "required": ["channel"]
+      }
+    }
+  }
+}
