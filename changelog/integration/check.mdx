@@ -1,0 +1,178 @@
+---
+title: App Configuration
+description: Check for app updates and retrieve settings
+---
+
+
+
+## What this does
+
+This request lets your app check:
+
+- if a new version is available  
+- whether an update should be shown  
+- where users should go to download it  
+
+In simple terms: it checks for updates.
+
+---
+
+## How it works
+
+1. The app sends a request  
+2. The server responds with settings  
+3. The app decides whether to show an update  
+
+---
+
+## How update selection works
+
+When your app checks for updates, the system doesn’t just return any version — it tries to choose the **most relevant and usable option** for each user.
+
+This selection follows a clear priority.
+
+---
+
+## Step-by-step logic
+
+### 1. Use the original installation source (channel)
+
+If your app sends the `channel` (where it was installed from), this becomes the main priority.
+
+Examples:
+- googleplay
+- appstore
+- galaxystore
+- appgallery
+
+What happens:
+The system first looks for an update from that exact source.
+
+Simple explanation:
+Users should update the app from the same place they originally installed it.
+
+---
+
+### 2. Keep other possible options as fallback
+
+Even if the main channel is found, the system may still keep other valid update options in the background.
+
+These are used only if needed.
+
+Simple explanation:
+There can be backup options, but the original source is always preferred.
+
+---
+
+### 3. Check which stores are available on the device
+
+On Android, the app can send `market_packages` — a list of app stores installed on the device.
+
+The system uses this to filter update options.
+
+What happens:
+- If a store is NOT installed → it will not be used
+- If a store IS installed → it can be used
+
+Simple explanation:
+We don’t show update options that the user cannot actually open.
+
+---
+
+### 4. APK is intentionally added as a fallback (Android only)
+
+Even if no supported store is found, the system **still allows APK updates**.
+
+This is done on purpose.
+
+Why:
+Some users may not have any supported store installed.
+
+Simple explanation:
+There is always a backup way to update — direct download (APK).
+
+Important:
+APK is not always the first choice, but it is always available when needed.
+
+---
+
+### 5. Match the correct app
+
+If `app_id` is provided, the system ensures that only versions of the correct app are considered.
+
+Simple explanation:
+Users will never receive updates from a different app.
+
+---
+
+### 6. Match the correct platform
+
+If `os_type` is provided, the system filters updates by platform:
+
+- android
+- ios
+- web
+
+Simple explanation:
+Android users won’t get iOS updates, and vice versa.
+
+---
+
+## How priorities work together
+
+In practice, the system combines all of the above rules.
+
+Priority order:
+
+1. Exact installation source (`channel`)
+2. Correct app (`app_id`)
+3. Correct platform (`os_type`)
+4. Available stores on the device (`market_packages`)
+5. APK fallback (Android only)
+
+---
+
+## Real-life examples
+
+### Example 1 — Installed from Google Play
+
+Input:
+- channel = googleplay
+- os_type = android
+
+Result:
+The system returns the Google Play version first.
+
+---
+
+### Example 2 — No channel, but stores are detected
+
+Input:
+- os_type = android
+- market_packages includes Samsung Store
+
+Result:
+The system selects a version compatible with Samsung Store.
+
+---
+
+### Example 3 — No supported stores available
+
+Input:
+- os_type = android
+- market_packages does not match any known store
+
+Result:
+The system still allows APK as a fallback option.
+
+---
+
+## Key takeaways
+
+- The system tries to update users from the same place they installed the app  
+- It avoids showing unusable update options  
+- It ensures compatibility with the device  
+- It always keeps a fallback path (APK for Android)  
+
+Goal:
+Provide the safest and most reliable update experience for every user.

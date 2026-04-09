@@ -1,62 +1,167 @@
 {
-  "$schema": "https://mintlify.com/schema.json",
+  "$schema": "https://mintlify.com/docs.json",
+  "name": "Releazio Docs",
   "theme": "mint",
-  "name": "Releazio",
   "logo": {
-    "light": "/logo/releazio-light.svg",
-    "dark": "/logo/releazio-dark.svg"
+    "light": "/images/light.svg",
+    "dark": "/images/dark.svg"
   },
   "favicon": "/favicon.svg",
   "colors": {
-    "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373"
+    "primary": "#000000",
+    "light": "#000000",
+    "dark": "#000000"
   },
   "navigation": {
     "tabs": [
       {
-        "tab": "Руководство",
-        "pages": [
-          "index",
-          "create-project",
-          "projects",
-          "platforms",
-          "integrations",
-          "versions",
-          "rules",
-          "posts",
-          "widgets",
-          "changelog",
-          "languages",
-          "feedback",
-          "support"
-        ]
-      },
-      {
-        "tab": "API Reference",
+        "tab": "Dashboard manual",
+        "icon": "rocket",
         "groups": [
           {
-            "group": "Check API",
+            "group": "Getting started",
+            "pages": ["dashboard/index", "dashboard/create-project"]
+          },
+          {
+            "group": "Sections",
             "pages": [
-              "check-reference/endpoint/get-config",
-              "check-reference/endpoint/init"
+              "dashboard/projects",
+              "dashboard/platforms",
+              "dashboard/versions",
+              "dashboard/rules",
+              "dashboard/posts",
+              "dashboard/integrations",
+              "dashboard/languages"
             ]
           },
           {
-            "group": "Feedback API",
-
+            "group": "Other",
+            "pages": ["dashboard/customization", "dashboard/support"]
+          }
+        ]
+      },
+      {
+        "tab": "Changelog",
+        "icon": "rectangle-list",
+        "groups": [
+          {
+            "group": "Getting started",
             "pages": [
-              "feedback-reference/endpoint/get-config",
-              "feedback-reference/endpoint/send"
+              "changelog/dashboard/intro",
+              "changelog/dashboard/how-works",
+              "changelog/dashboard/setup"
             ]
+          },
+          {
+            "group": "Integration",
+            "pages": [
+              "changelog/integration/auth",
+              "changelog/integration/init",
+              "changelog/integration/check"
+            ]
+          },
+          {
+            "group": "API Reference",
+            "pages": [
+              "changelog/api-reference/init",
+              "changelog/api-reference/get-config"
+            ]
+          },
+          {
+            "group": "SDKs",
+            "pages": [
+              "sdk/android-redirect",
+              "sdk/ios-redirect",
+              "sdk/js-redirect"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Feedback",
+        "icon": "star",
+        "groups": [
+          {
+            "group": "Getting started",
+            "pages": ["feedback/intro", "feedback/create"]
+          },
+          {
+            "group": "Integration",
+            "pages": [
+              "feedback/integration/auth",
+              "feedback/integration/config",
+              "feedback/integration/send"
+            ]
+          },
+          {
+            "group": "API Reference",
+            "pages": [
+              "feedback/api-reference/get-config",
+              "feedback/api-reference/send"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Updates",
+        "icon": "rss",
+        "groups": [
+          {
+            "group": "News",
+            "pages": ["changelog/news/index", "feedback/news/index"]
           }
         ]
       }
     ]
   },
-  "translations": {
-    "search": "Поиск",
-    "next": "Далее",
-    "previous": "Назад"
+  "navbar": {
+    "links": [
+      {
+        "label": "Support",
+        "href": "mailto:hello@releazio.com",
+        "icon": "envelope"
+      },
+      {
+        "label": "Telegram",
+        "href": "https://t.me/Releazio_SupportBot",
+        "icon": "telegram"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Dashboard",
+      "href": "https://releazio.com/projects"
+    }
+  },
+  "search": {
+    "prompt": "Поиск..."
+  },
+  "contextual": {
+    "options": ["copy", "chatgpt", "claude", "perplexity"]
+  },
+  "footer": {
+    "links": [
+      {
+        "items": [
+          {
+            "href": "https://www.npmjs.com/package/@rlzio/sdk",
+            "label": "JS SDK"
+          },
+          {
+            "href": "https://github.com/Releazio/releazio-sdk-android",
+            "label": "Android SDK"
+          },
+          {
+            "href": "https://github.com/Releazio/releazio-sdk-ios",
+            "label": "IOS SDK"
+          }
+        ]
+      }
+    ],
+    "socials": {
+      "telegram": "https://t.me/Releazio_SupportBot",
+      "website": "https://releazio.com",
+      "github": "https://github.com/Releazio"
+    }
   }
 }

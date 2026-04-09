@@ -1,0 +1,112 @@
+---
+title: Send feedback
+description: Save user feedback
+---
+
+## How sending feedback works
+
+This endpoint is used when a user completes the feedback form and the app sends their response to the server.
+
+In simple terms:
+the user leaves feedback → the app sends it → the system saves it.
+
+---
+
+## What happens during submission
+
+When feedback is sent, the system makes sure that everything is correct before saving it.
+
+It checks that:
+- the request comes from a valid app
+- the request is complete and properly formatted
+- feedback is being sent for the correct app and channel
+
+If everything is valid, the feedback is saved successfully.
+
+---
+
+## Why some requests may not be accepted
+
+In some cases, the system may reject a request.
+
+This can happen if:
+- the request is incomplete or incorrect  
+- required information is missing  
+- the feedback flow is not configured for this app  
+- too many submissions are sent too quickly  
+
+Simple explanation:
+The system only accepts valid and reasonable feedback submissions.
+
+---
+
+## Protection against repeated submissions
+
+To keep feedback clean and useful, the system limits how often feedback can be sent.
+
+If the same user (or device) tries to submit feedback multiple times in a short period, some requests may be ignored.
+
+Simple explanation:
+Users cannot send feedback too frequently.
+
+---
+
+## Why this matters
+
+These checks help ensure that:
+- feedback is reliable  
+- duplicate submissions are reduced  
+- data is consistent and useful  
+
+---
+
+## Typical flow
+
+1. The user interacts with the feedback form  
+2. The user submits their response  
+3. The app sends the feedback  
+4. The system validates it  
+5. The feedback is saved  
+
+---
+
+## Simple examples
+
+### Normal case
+
+A user submits feedback once.
+
+Result:
+The feedback is saved successfully.
+
+---
+
+### Repeated submissions
+
+A user tries to submit feedback multiple times quickly.
+
+Result:
+Some submissions may be ignored.
+
+---
+
+### Invalid request
+
+The app sends incomplete or incorrect data.
+
+Result:
+The feedback is not accepted.
+
+---
+
+## Summary
+
+This endpoint is responsible for collecting user feedback.
+
+It ensures that:
+- feedback is valid  
+- submissions are not duplicated  
+- data stays clean and useful  
+
+Goal:
+Make feedback reliable and meaningful for improving your product.

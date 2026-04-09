@@ -1,0 +1,125 @@
+---
+title: Config
+description: Feedback form config
+---
+
+## How feedback form configuration works
+
+When your app requests feedback form settings, the system returns instructions on **how the feedback screen should behave**.
+
+This allows you to change the feedback experience without updating the app.
+
+---
+
+## What this actually means
+
+Instead of hardcoding the feedback screen in your app, you receive it dynamically from the server.
+
+The server decides:
+- what kind of feedback flow to show
+- how users interact with it
+- what happens after they leave a rating
+
+Simple idea:
+The app asks, “How should I collect feedback right now?” — and the server answers.
+
+---
+
+## Why this is useful
+
+Different situations may require different feedback behavior.
+
+For example:
+- in some cases, you may want to redirect happy users to leave a public review
+- in other cases, you may want to collect feedback privately inside the app
+- sometimes you want a quick rating, sometimes more detailed feedback
+
+This endpoint allows you to adjust that without releasing a new version of the app.
+
+---
+
+## How channel affects behavior
+
+The request includes `X-Channel`, which represents where the app is used or distributed from.
+
+Why this matters:
+
+Different platforms or stores may require different feedback flows.
+
+For example:
+- App Store and Google Play may prioritize public ratings
+- alternative stores may rely more on in-app feedback
+- web may behave differently from mobile apps
+
+Simple idea:
+The same app can have different feedback behavior depending on where it runs.
+
+---
+
+## How the flow is controlled
+
+The response defines the overall user experience:
+
+- whether the user stays inside the app or is redirected elsewhere  
+- whether feedback is quick or detailed  
+- whether the user can skip the flow  
+- how strict or optional the feedback is  
+
+You don’t control this in the app — the backend does.
+
+---
+
+## Typical flow
+
+1. The app opens a feedback screen  
+2. It requests configuration from the server  
+3. The server responds with instructions  
+4. The app builds the feedback UI based on that  
+5. The user interacts with the form  
+
+---
+
+## Real-life scenarios
+
+### Scenario 1 — Encourage public reviews
+
+The system may guide satisfied users to leave a review in an app store.
+
+Unhappy users can stay in the app and share feedback privately.
+
+---
+
+### Scenario 2 — Collect internal feedback only
+
+All users stay inside the app and provide feedback directly.
+
+This is useful when you want to gather insights instead of public ratings.
+
+---
+
+### Scenario 3 — Minimal friction
+
+The feedback flow is very simple and quick.
+
+Users can rate the app in just one tap and optionally skip the rest.
+
+---
+
+## Key idea
+
+This endpoint does not just return data —  
+it controls the **entire feedback experience**.
+
+---
+
+## Summary
+
+The system dynamically decides:
+
+- how feedback should be collected  
+- what kind of experience the user sees  
+- whether to redirect users or keep them inside the app  
+- how strict or optional the feedback flow should be  
+
+Goal:
+Make feedback collection flexible and adaptable without changing the app itself.

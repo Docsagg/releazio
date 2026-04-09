@@ -1,0 +1,191 @@
+---
+title: Initialization
+description: Register a device and send basic app information
+---
+
+<Note>
+This endpoint is safe to call from client applications and helps us better understand your users and devices.
+</Note>
+
+## What is this?
+
+This request tells our system about a **device and app that just started working**.
+
+Think of it like a quick “hello” from your app:
+
+* what app is running
+* on what device
+* in what country
+* with what settings
+
+We use this to understand usage and make everything work correctly.
+
+---
+
+## When should you use it?
+
+Call this endpoint when:
+
+* the app launches for the first time
+* the app starts a new session
+* you want to refresh device info
+
+---
+
+## Request
+
+**POST** `/init`
+
+You must also send your API key in the header:
+
+```http
+Authorization: YOUR_API_KEY
+```
+
+---
+
+## What information you send
+
+You don’t need to understand every technical field — just send what you know.
+Here’s what each field means in simple terms:
+
+### Required
+
+* **channel** — where the app was installed from
+  Example: `googleplay`, `appstore`, `apk`, `web`
+
+---
+
+### App info
+
+* **app_id** — your app identifier
+  Example: `com.some.app`
+
+* **app_version_code** — internal version number
+  Example: `100`
+
+* **app_version_name** — version shown to users
+  Example: `1.0.0`
+
+---
+
+### Device & system
+
+* **os_type** — device system
+  Example: `android`
+
+* **os_version_code** — OS version
+  Example: `34`
+
+* **os_api_level** — system API level
+  Example: `36`
+
+* **device_manufacturer** — who made the device
+  Example: `Google`
+
+* **device_brand** — brand name
+  Example: `google`
+
+* **device_model** — device model
+  Example: `Pixel 7`
+
+---
+
+### Location & language
+
+* **region** — country code
+  Example: `RU`
+
+* **locale** — language
+  Example: `en`
+
+* **timezone** — user timezone
+  Example: `Europe/Moscow`
+
+---
+
+### Device details
+
+* **device_id** — unique device identifier
+
+* **screen_width / screen_height** — screen size
+
+* **screen_scale** — screen density
+
+* **is_emulator** — is this a virtual device
+  Example: `true` or `false`
+
+---
+
+### Stores installed
+
+* **market_packages** — installed app stores
+  Example:
+
+  ```
+  com.android.vending, com.huawei.appmarket
+  ```
+
+---
+
+## Example request
+
+```bash
+curl --request POST \
+  --url https://check.releazio.com/init \
+  --header 'Authorization: YOUR_API_KEY' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "channel": "apk",
+    "app_id": "com.some.app",
+    "app_version_code": 100,
+    "app_version_name": "1.0.0",
+    "os_type": "android",
+    "region": "RU",
+    "locale": "en",
+    "device_id": "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+  }'
+```
+
+---
+
+## What you get back
+
+### Success
+
+If everything is correct — the request is accepted silently (no errors).
+
+---
+
+### Error example
+
+If something is wrong, you will see a response like this:
+
+```json
+{
+  "statusCode": 400,
+  "message": [
+    "channel must be one of the allowed values"
+  ],
+  "error": "Bad Request"
+}
+```
+
+---
+
+## Common mistakes
+
+* ❌ Missing `Authorization` header
+* ❌ Wrong `channel` value
+* ❌ Sending empty required fields
+* ❌ Invalid JSON format
+
+---
+
+## Tips
+
+* Start with minimal fields, then add more later
+* Always double-check your API key
+* Use real device data when possible
+
+---

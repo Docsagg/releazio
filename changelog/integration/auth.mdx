@@ -1,0 +1,72 @@
+---
+title: Authentication
+description: Secure access to the API using your project API key.
+---
+
+## Overview
+
+All requests to the API must be authenticated using an **API key**. This key uniquely identifies your project and ensures secure communication with our services.
+
+---
+
+## Getting Your API Key
+
+You can generate and manage your API key from the dashboard:
+
+**Dashboard → Your Project → Integration → API Key**
+
+<Note>
+You can safely use this API key in public environments as it is designed with controlled access and usage limits.
+</Note>
+
+---
+
+## Using the API Key
+
+Include your API key in **every request** via the `Authorization` header.
+
+### Example
+
+```http
+Authorization: Bearer YOUR_API_KEY
+```
+
+---
+
+## Important Notes
+
+* The API key is **required** for all endpoints.
+* Requests without a valid API key will be rejected with a `401 Unauthorized` response.
+* Ensure there are **no extra spaces or missing characters** in the header.
+* If your key is compromised, regenerate it immediately from the dashboard.
+
+---
+
+## Security Considerations
+
+* Although the API key is safe for use in public-facing applications, avoid exposing it unnecessarily.
+* Rotate your API keys periodically for better security hygiene.
+
+---
+
+## Troubleshooting
+
+**401 Unauthorized**
+
+* Check if the `Authorization` header is present.
+* Ensure the format is `Authorization: YOUR_API_KEY`.
+* Verify that your API key is still active.
+
+**403 Forbidden**
+
+* Your key may not have access to the requested resource.
+
+---
+
+## Best Practices
+
+* Store your API key in environment variables.
+* Avoid hardcoding keys directly into your source code.
+* Use separate keys for development and production environments.
+
+---
